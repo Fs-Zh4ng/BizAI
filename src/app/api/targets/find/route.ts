@@ -29,6 +29,7 @@ export async function POST(request: NextRequest) {
       // Prefer OpenAI+Hunter explicitly to avoid Apollo/free-plan issues
       let targets = null;
       if (process.env.OPENAI_API_KEY && process.env.HUNTER_API_KEY) {
+        console.log(campaign.businessDescription, campaign.targetAudience, campaign.emailCount);
         targets = await TargetDiscovery.openAIHunter(campaign.businessDescription, campaign.targetAudience, campaign.emailCount);
         console.log('OpenAI+Hunter returned', targets?.length);
       }

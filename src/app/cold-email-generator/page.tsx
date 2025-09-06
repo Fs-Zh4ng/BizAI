@@ -130,9 +130,6 @@ export default function ColdEmailGenerator() {
             <a href="/cold-email-generator" className="text-blue-600 hover:text-blue-900 font-semibold">Cold Email Generator</a>
             <a href="/competitor-analysis" className="text-gray-600 hover:text-gray-900">Competitor Analysis</a>
           </nav>
-          <button className="bg-gray-900 text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors">
-            Try Now
-          </button>
         </div>
       </header>
 
@@ -300,139 +297,6 @@ export default function ColdEmailGenerator() {
         </div>
       </section>
 
-      {/* How it Works Section */}
-      <section className="px-6 py-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">How it works</h2>
-            <p className="text-xl text-gray-600">Three simple steps to personalized outreach</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Step 1 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-bold text-white">1</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Paste or write</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Drop in your message — anything from a DM to a LinkedIn post. 
-                Or paste a LinkedIn profile URL for instant personalization.
-              </p>
-            </div>
-
-            {/* Step 2 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 text-center relative">
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-              </div>
-              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-bold text-white">2</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Choose a tone</h3>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                Pick how you want to sound: friendly, direct, confident, empathetic, or playful.
-              </p>
-              <div className="flex flex-wrap gap-2 justify-center">
-                <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Friendly</span>
-                <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Direct</span>
-                <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">Confident</span>
-                <span className="px-3 py-1 bg-pink-100 text-pink-800 rounded-full text-sm">Empathetic</span>
-              </div>
-            </div>
-
-            {/* Step 3 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-bold text-white">3</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Get rewrite + tweak</h3>
-              <p className="text-gray-600 leading-relaxed">
-                AI rewrites your text instantly. Edit, shorten, or add a dash of emoji flair. 
-                Get 2 follow-up emails included.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="px-6 py-20 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Powerful features</h2>
-            <p className="text-xl text-gray-600">Everything you need for successful cold outreach</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
-              <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Lightning Fast</h3>
-              <p className="text-gray-600">Generate personalized emails in under 10 seconds with our advanced AI.</p>
-            </div>
-
-            {/* Feature 2 */}
-            <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-100">
-              <div className="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">LinkedIn Integration</h3>
-              <p className="text-gray-600">Automatically scrape LinkedIn profiles for instant personalization.</p>
-            </div>
-
-            {/* Feature 3 */}
-            <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-2xl p-6 border border-purple-100">
-              <div className="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Follow-up Sequences</h3>
-              <p className="text-gray-600">Get 2 additional follow-up emails to maximize your response rate.</p>
-            </div>
-
-            {/* Feature 4 */}
-            <div className="bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl p-6 border border-pink-100">
-              <div className="w-12 h-12 bg-pink-600 rounded-xl flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m-9 0h10m-10 0a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2M9 12h6m-6 4h6" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Multiple Tones</h3>
-              <p className="text-gray-600">Choose from friendly, direct, confident, empathetic, or playful tones.</p>
-            </div>
-
-            {/* Feature 5 */}
-            <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-2xl p-6 border border-indigo-100">
-              <div className="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Secure & Private</h3>
-              <p className="text-gray-600">Your data is encrypted and never shared with third parties.</p>
-            </div>
-
-            {/* Feature 6 */}
-            <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl p-6 border border-yellow-100">
-              <div className="w-12 h-12 bg-yellow-600 rounded-xl flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">High Response Rates</h3>
-              <p className="text-gray-600">Our AI-generated emails achieve 3x higher response rates than generic templates.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Results Section */}
       {showResults && campaign && (
         <section className="px-6 py-20 bg-gray-50">
@@ -521,6 +385,63 @@ export default function ColdEmailGenerator() {
           </div>
         </section>
       )}
+
+      {/* How it Works Section */}
+      <section className="px-6 py-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">How it works</h2>
+            <p className="text-xl text-gray-600">Three simple steps to personalized outreach</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Step 1 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-2xl font-bold text-white">1</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Business Information</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Enter your business information—try to be as specific as possible
+                while keeping it short. Include purpose, pricing and goals.
+              </p>
+            </div>
+
+            {/* Step 2 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 text-center relative">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+              </div>
+              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-2xl font-bold text-white">2</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Choose a target</h3>
+              <p className="text-gray-600 leading-relaxed mb-6">
+                Pick your target companies and positions. 
+              </p>
+              <div className="flex flex-wrap gap-2 justify-center">
+                <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">SaaS</span>
+                <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Tech</span>
+                <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">CEO</span>
+                <span className="px-3 py-1 bg-pink-100 text-pink-800 rounded-full text-sm">Marketing</span>
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-2xl font-bold text-white">3</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Get Personalized Emails</h3>
+              <p className="text-gray-600 leading-relaxed">
+                AI finds suitable targets and generates personalized cold emails
+                with follow-ups ready to copy-paste and send.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
 
       {/* Footer */}
       <footer className="px-6 py-12 border-t border-gray-200">

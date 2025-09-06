@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -36,10 +37,6 @@ export default function Home() {
             Transform your outreach and competitive analysis with AI. Generate personalized cold emails 
             and spy on competitors in seconds, not hours.
           </p>
-          
-          <button className="bg-gray-900 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-gray-800 transition-colors shadow-lg">
-            Start building smarter
-          </button>
         </div>
       </main>
 
@@ -76,6 +73,11 @@ export default function Home() {
                   <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
                   Automated follow-up sequences
                 </div>
+                <div className="pt-6">
+                  <Link href="/cold-email-generator" className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-xl text-lg font-semibold hover:from-green-700 hover:to-blue-700 transition-all shadow-lg">
+                    Try Cold Email Generator
+                  </Link>
+                </div>
               </div>
             </div>
 
@@ -108,6 +110,11 @@ export default function Home() {
                 <div className="flex items-center text-sm text-gray-500">
                   <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
                   Competitive advantage mapping
+                </div>
+                <div className="pt-6">
+                  <Link href="/competitor-analysis" className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl text-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg">
+                    Try Competitor Analysis
+                  </Link>
                 </div>
               </div>
             </div>

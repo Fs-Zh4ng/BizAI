@@ -82,12 +82,12 @@ export class TargetDiscovery {
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    const count = this.getEmailCount(emailCount);
+    const range = this.getEmailCountRange(emailCount);
 
     // Preferred flow: use OpenAI to generate candidate leads and then Hunter to resolve emails
     if (process.env.OPENAI_API_KEY && process.env.HUNTER_API_KEY) {
       try {
-        const hunterResults = await this.searchOpenAIThenHunter(businessDescription, targetAudience, count);
+        const hunterResults = await this.searchOpenAIThenHunter(businessDescription, targetAudience, range.min, range.max);
         if (hunterResults && hunterResults.length > 0) return hunterResults;
       } catch (err) {
         console.warn('OpenAI+Hunter flow failed, falling back to local mock targets:', err);
@@ -100,8 +100,8 @@ export class TargetDiscovery {
     // Filter targets based on business type and audience
     let filteredTargets = this.filterTargetsByBusiness(companyNames, targetAudience);
     
-    // Limit based on email count
-    filteredTargets = filteredTargets.slice(0, count);
+    // Limit based on upper bound of requested range
+    filteredTargets = filteredTargets.slice(0, range.max);
 
     // Add some randomization to make it feel more realistic
     return this.shuffleArray(filteredTargets);
@@ -150,12 +150,23 @@ export class TargetDiscovery {
   }
 
   private static getEmailCount(emailCount: string): number {
+    // Deprecated: kept for binary compatibility; prefer getEmailCountRange
     switch (emailCount) {
       case 'small': return 5;
       case 'medium': return 10;
       case 'large': return 20;
       case 'enterprise': return 50;
       default: return 5;
+    }
+  }
+
+  private static getEmailCountRange(emailCount: string): { min: number; max: number } {
+    switch (emailCount) {
+      case 'small': return { min: 5, max: 10 };
+      case 'medium': return { min: 10, max: 20 };
+      case 'large': return { min: 20, max: 50 };
+      case 'enterprise': return { min: 50, max: 100 };
+      default: return { min: 3, max: 5 };
     }
   }
 
@@ -209,112 +220,20 @@ export class TargetDiscovery {
     return '50-200 employees';
   }
 
-  private static async searchApolloContacts(businessDescription: string, targetAudience: string | undefined, count: number): Promise<TargetInfo[] | null> {
-    try {
-      const queryString = `${businessDescription} ${targetAudience || ''}`.trim();
-      const url = `https://api.apollo.io/api/v1/mixed_people/search`;
-
-      const body = JSON.stringify({ q: queryString, per_page: count });
-
-      const defaultHeaders = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${process.env.APOLLO_API_KEY}`
-      } as Record<string,string>;
-
-      let res = await fetch(url, {
-        method: 'POST',
-        headers: defaultHeaders,
-        body
-      });
-
-      if (!res.ok) {
-        // capture body for debugging
-        const text = await res.text().catch(() => '<unreadable response>');
-        console.warn('Apollo API responded with non-OK status', res.status, text);
-
-        // If 401, try alternate header (some API keys are expected in x-api-key)
-        if (res.status === 401) {
-          const altHeaders = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'x-api-key': `${process.env.APOLLO_API_KEY}`
-          } as Record<string,string>;
-
-          try {
-            const retry = await fetch(url, { method: 'POST', headers: altHeaders, body });
-            if (retry.ok) {
-              res = retry;
-            } else {
-              const retryText = await retry.text().catch(() => '<unreadable retry response>');
-              console.warn('Apollo retry with x-api-key failed', retry.status, retryText);
-              return null;
-            }
-          } catch (err) {
-            console.warn('Apollo retry with x-api-key threw error', err);
-            return null;
-          }
-        } else {
-          return null;
-        }
-      }
-
-      const data = await res.json();
-      // Apollo returns results under `contacts` (example provided by user)
-      const contacts = data.contacts || data.results || [];
-      if (!Array.isArray(contacts) || contacts.length === 0) return null;
-
-      const people = contacts.slice(0, count).map((p: any) => {
-        // Resolve name
-        const name = p.name || `${p.first_name || ''} ${p.last_name || ''}`.trim() || undefined;
-
-        // Resolve email: prefer top-level email, then contact_emails array
-        let email: string | undefined = undefined;
-        if (p.email) email = p.email;
-        else if (Array.isArray(p.contact_emails) && p.contact_emails.length > 0) {
-          const primary = p.contact_emails.find((e: any) => e.email && e.email.indexOf('@') > -1);
-          email = primary ? primary.email : p.contact_emails[0].email;
-        }
-
-        // Resolve company
-        const company = (p.organization && (p.organization.name || p.organization.organization_name)) || p.organization_name || p.organization_name || (p.account && p.account.name) || p.organization || 'Company';
-
-        // Resolve title
-        const title = p.title || p.headline || p.position || undefined;
-
-        // LinkedIn
-        const linkedinUrl = p.linkedin_url || p.linkedinUrl || p.linkedin || undefined;
-
-        return {
-          name: name || 'Unknown',
-          email: email || undefined,
-          company: company,
-          title: title || undefined,
-          linkedinUrl: linkedinUrl || undefined,
-          personalizationData: { source: 'apollo', raw: p }
-        } as TargetInfo;
-      });
-
-      return people;
-    } catch (err) {
-      console.warn('Error querying Apollo API', err);
-      return null;
-    }
-  }
-
   // Use OpenAI to generate candidate leads (names + companies) and then query Hunter to resolve emails.
-  private static async searchOpenAIThenHunter(businessDescription: string, targetAudience: string | undefined, count: number): Promise<TargetInfo[] | null> {
+  private static async searchOpenAIThenHunter(businessDescription: string, targetAudience: string | undefined, min: number, max: number): Promise<TargetInfo[] | null> {
     if (!process.env.OPENAI_API_KEY || !process.env.HUNTER_API_KEY) return null;
 
     try {
-      const leads = await EmailGenerator.generateLeads(businessDescription, targetAudience, count);
+      const leads = await EmailGenerator.generateLeads(businessDescription, targetAudience, min, max);
       if (!leads || leads.length === 0) return null;
+      console.log('Requested leads range:', min, max);
 
       const hunterKey = process.env.HUNTER_API_KEY!;
       const results: TargetInfo[] = [];
 
       // Query Hunter sequentially to avoid rate-limit bursts
-      for (const lead of leads.slice(0, count)) {
+      for (const lead of leads.slice(0, max)) {
         const first = (lead.first_name || '').trim();
         const last = (lead.last_name || '').trim();
         if (!first || !last) continue;
@@ -360,7 +279,7 @@ export class TargetDiscovery {
 
   // Public wrapper to run OpenAI+Hunter flow directly
   static async openAIHunter(businessDescription: string, targetAudience: string | undefined, emailCount: string = 'small'): Promise<TargetInfo[] | null> {
-    const count = this.getEmailCount(emailCount);
-    return await this.searchOpenAIThenHunter(businessDescription, targetAudience, count);
+    const range = this.getEmailCountRange(emailCount);
+    return await this.searchOpenAIThenHunter(businessDescription, targetAudience, range.min, range.max);
   }
 }

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.15.0",
+    "chart.js": "^4.5.0",
     "clsx": "^2.1.1",
     "csv-writer": "^1.6.0",
     "jspdf": "^3.0.2",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/chart.js": "^2.9.41",
     "@types/node": "^20.19.12",
     "@types/react": "^19",
     "@types/react-dom": "^19",
